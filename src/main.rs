@@ -6,6 +6,8 @@ mod render;
 mod menu;
 mod ui_elements;
 mod game_menu_action;
+mod setting;
+mod game_state;
 
 use macroquad::prelude::*;
 use game::*;

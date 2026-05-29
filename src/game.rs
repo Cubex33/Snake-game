@@ -5,18 +5,13 @@ use crate::snake::Snake;
 use crate::food::random_food;
 use crate::render;
 use crate::menu::*;
+use crate::game_state::GameState;
 use macroquad::prelude::*;
 
 
 const MOVE_SPEED: f32 = 0.12;
 
-#[derive(PartialEq)]
-pub enum GameState {
-    Menu,
-    Setting,
-    Playing,
-    GameOver,
-}
+
 
 pub struct Game {
     snake: Snake,
@@ -59,7 +54,6 @@ impl Game {
             GameState::Menu => {
                 match Menu::draw() {
                     GameMenuAction::Start => self.start_new_game(),
-                    GameMenuAction::Setting => self.open_settion(),
                     GameMenuAction::Quit => std::process::exit(0),
                     GameMenuAction::None => {}
                 }

@@ -1,11 +1,12 @@
 use macroquad::prelude::*;
 use crate::ui_elements::*;
+use crate::game_menu_action::*;
 
 pub struct Setting;
 
 impl Setting
 {
-    pub fn draw() -> GameMenuAction
+    pub fn draw()
     {
         let slider_w = 220.0;
         let slider_h = 55.0;
@@ -14,7 +15,9 @@ impl Setting
 
         let (mouse_x, mouse_y) = mouse_position();
 
-        let slider_hover = mouse_x > slider_x && mouse_x < slider_x + btn_w
-            && mouse_y > slider_y && mouse_y < slider_y + btn_h;
+        let slider_hover = mouse_x > slider_x && mouse_x < slider_x + slider_w
+            && mouse_y > slider_y && mouse_y < slider_y + slider_h;
+
+        
     }
 }
