@@ -8,10 +8,7 @@ use crate::menu::*;
 use crate::game_state::GameState;
 use macroquad::prelude::*;
 
-
 const MOVE_SPEED: f32 = 0.12;
-
-
 
 pub struct Game {
     snake: Snake,
