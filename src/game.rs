@@ -6,6 +6,7 @@ use crate::food::random_food;
 use crate::render;
 use crate::menu::*;
 use crate::game_state::GameState;
+use  crate::setting::*;
 use macroquad::prelude::*;
 
 
@@ -42,7 +43,7 @@ impl Game {
         self.state = GameState::Playing;
     }
 
-    fn open_settion(&mut self)
+    fn open_setting(&mut self)
     {
         self.state = GameState::Setting;
     }
@@ -55,6 +56,7 @@ impl Game {
                 match Menu::draw() {
                     GameMenuAction::Start => self.start_new_game(),
                     GameMenuAction::Quit => std::process::exit(0),
+                    GameMenuAction::Settings => self.open_setting(),
                     GameMenuAction::None => {}
                 }
             }
@@ -121,7 +123,7 @@ impl Game {
                 );
             }
             GameState::Setting => {
-                
+                Setting::draw();
             }
             GameState::GameOver => {
                 render::draw_grid();
