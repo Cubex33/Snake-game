@@ -55,6 +55,7 @@ impl Game {
                 match Menu::draw() {
                     GameMenuAction::Start => self.start_new_game(),
                     GameMenuAction::Quit => std::process::exit(0),
+                    GameMenuAction::Settings => self.open_settion(),
                     GameMenuAction::None => {}
                 }
             }

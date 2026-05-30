@@ -29,17 +29,24 @@ impl Menu {
         let btn_h = 55.0;
         let btn_x = 800.0 / 2.0 - btn_w / 2.0;
         let start_y = 270.0;
-        let quit_y = 350.0;
+        let setting_y = 350.0;
+        let quit_y = 430.0;
 
         let (mouse_x, mouse_y) = mouse_position();
 
         let start_hover = mouse_x > btn_x && mouse_x < btn_x + btn_w
             && mouse_y > start_y && mouse_y < start_y + btn_h;
+        let setting_hover = mouse_x > btn_x && mouse_x < btn_x + btn_w
+            && mouse_y > setting_y && mouse_y < setting_y + btn_h;
         let quit_hover = mouse_x > btn_x && mouse_x < btn_x + btn_w
             && mouse_y > quit_y && mouse_y < quit_y + btn_h;
 
         if draw_button(btn_x, start_y, btn_w, btn_h, "START GAME", start_hover) {
             return GameMenuAction::Start;
+        }
+
+        if draw_button(btn_x, setting_y, btn_w, btn_h, "SETTINGS", setting_hover) {
+            return GameMenuAction::Settings;
         }
 
         if draw_button(btn_x, quit_y, btn_w, btn_h, "QUIT", quit_hover) {
@@ -49,7 +56,7 @@ impl Menu {
         draw_text(
             "or press ENTER to start",
             (800.0 - measure_text("or press ENTER to start", None, 24, 1.0).width) / 2.0,
-            440.0,
+            540.0,
             24.0,
             Color::new(0.5, 0.5, 0.5, 1.0),
         );
