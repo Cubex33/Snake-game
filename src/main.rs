@@ -8,6 +8,7 @@ mod ui_elements;
 mod game_menu_action;
 mod setting;
 mod game_state;
+mod data;
 
 use macroquad::prelude::*;
 use game::*;

@@ -57,7 +57,7 @@ impl Menu {
         draw_text(
             "or press ENTER to start",
             (800.0 - measure_text("or press ENTER to start", None, 24, 1.0).width) / 2.0,
-            440.0,
+            520.0,
             24.0,
             Color::new(0.5, 0.5, 0.5, 1.0),
         );
