@@ -9,6 +9,7 @@ pub struct GameData {
     pub volume: f32,
     pub music_volume: f32,
     pub fullscreen: bool,
+    pub color: String,
 }
 
 impl Default for GameData {
@@ -17,6 +18,7 @@ impl Default for GameData {
             volume: 0.5,
             music_volume: 0.5,
             fullscreen: false,
+            color: "Green".to_string(),
         }
     }
 }

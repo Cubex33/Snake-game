@@ -1,20 +1,37 @@
 use crate::point::Point;
 use crate::food::{random_food, GRID_WIDTH, GRID_HEIGHT};
+use macroquad::prelude::*;
+use crate::data::*;
 
 pub struct Snake {
     pub body: Vec<Point>,
     pub dir: Point,
+    pub color: Color,
+}
+
+fn color_from_string(name: &str) -> Color {
+    match name {
+        "Red" => RED,
+        "Blue" => BLUE,
+        "Yellow" => YELLOW,
+        "Purple" => PURPLE,
+        "Orange" => ORANGE,
+        _ => GREEN,
+    }
 }
 
 impl Snake {
     pub fn new() -> Self {
+        let data = GameData::load();
+
         Self {
             body: vec![
-                Point { x: 10, y: 10 },
-                Point { x: 9, y: 10 },
-                Point { x: 8, y: 10 },
+                Point { x: 5, y: 5 },
+                Point { x: 4, y: 5 },
+                Point { x: 3, y: 5 },
             ],
             dir: Point { x: 1, y: 0 },
+            color: color_from_string(&data.color),
         }
     }
 

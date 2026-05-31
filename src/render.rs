@@ -39,26 +39,54 @@ pub fn draw_grid() {
     }
 }
 
+fn brighten(color: Color, amount: f32) -> Color {
+    Color::new(
+        (color.r + amount).min(1.0),
+        (color.g + amount).min(1.0),
+        (color.b + amount).min(1.0),
+        color.a,
+    )
+}
+
+fn darken(color: Color, amount: f32) -> Color {
+    Color::new(
+        (color.r - amount).max(0.0),
+        (color.g - amount).max(0.0),
+        (color.b - amount).max(0.0),
+        color.a,
+    )
+}
+
 pub fn draw_snake(snake: &Snake) {
+    let head_color = brighten(snake.color, 0.2);
+    let body1_color = snake.color;
+    let body2_color = brighten(snake.color, 0.08);
+    let border_color = darken(snake.color, 0.3);
+
     for (i, segment) in snake.body.iter().enumerate() {
         let (sx, sy) = grid_to_screen(segment.x, segment.y);
         let size = CELL_SIZE - 2.0;
+
         let color = if i == 0 {
-            Color::new(0.3, 0.9, 0.3, 1.0)
+            head_color
         } else if i % 2 == 0 {
-            Color::new(0.0, 0.65, 0.0, 1.0)
+            body1_color
         } else {
-            Color::new(0.1, 0.75, 0.1, 1.0)
+            body2_color
         };
+
         draw_rectangle(sx, sy, size, size, color);
-        draw_rectangle_lines(sx, sy, size, size, 1.5, Color::new(0.0, 0.3, 0.0, 1.0));
+        draw_rectangle_lines(sx, sy, size, size, 1.5, border_color);
 
         if i == 0 {
             let dir = snake.dir;
+
             let eye_radius = 2.5;
             let pupil_radius = 1.2;
+
             let head_center_x = sx + size / 2.0;
             let head_center_y = sy + size / 2.0;
+
             let (base_eye_offset_x, base_eye_offset_y) = match (dir.x, dir.y) {
                 (1, 0) => (5.0, -4.0),
                 (-1, 0) => (-5.0, -4.0),
@@ -66,6 +94,7 @@ pub fn draw_snake(snake: &Snake) {
                 (0, 1) => (-4.0, 5.0),
                 _ => (5.0, -4.0),
             };
+
             let perp_x = -dir.y as f32;
             let perp_y = dir.x as f32;
 
@@ -73,6 +102,7 @@ pub fn draw_snake(snake: &Snake) {
                 head_center_x + base_eye_offset_x + perp_x * 3.5,
                 head_center_y + base_eye_offset_y + perp_y * 3.5,
             );
+
             let eye2 = (
                 head_center_x + base_eye_offset_x - perp_x * 3.5,
                 head_center_y + base_eye_offset_y - perp_y * 3.5,
@@ -80,6 +110,7 @@ pub fn draw_snake(snake: &Snake) {
 
             draw_circle(eye1.0, eye1.1, eye_radius, WHITE);
             draw_circle(eye2.0, eye2.1, eye_radius, WHITE);
+
             draw_circle(eye1.0, eye1.1, pupil_radius, BLACK);
             draw_circle(eye2.0, eye2.1, pupil_radius, BLACK);
         }
