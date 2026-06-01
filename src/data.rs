@@ -8,6 +8,7 @@ const DATA_FILE: &str = "data.json";
 pub struct GameData {
     pub volume: f32,
     pub music_volume: f32,
+    pub hignScore: u32,
     pub fullscreen: bool,
     pub color: String,
 }
@@ -17,6 +18,7 @@ impl Default for GameData {
         Self {
             volume: 0.5,
             music_volume: 0.5,
+            hignScore: 0,
             fullscreen: false,
             color: "Green".to_string(),
         }

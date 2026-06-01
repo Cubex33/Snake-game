@@ -62,6 +62,7 @@ impl Game {
             GameState::Playing => {
                 let min_delay = 0.03; 
                 let max_delay = 0.3;  
+
                 move_speed = max_delay - self.setting.data.volume * (max_delay - min_delay);
                 if is_key_pressed(KeyCode::Up) && self.snake.dir.y == 0 {
                     self.snake.dir = crate::point::Point { x: 0, y: -1 };
@@ -124,11 +125,26 @@ impl Game {
                     28.0,
                     WHITE,
                 );
+
+                
+                draw_text(
+                    &format!("Hign Score: {}", self.setting.data.hignScore),
+                    render::OFFSET_X,
+                    render::OFFSET_Y + 5.0,
+                    28.0,
+                    WHITE,
+                );
+                
             }
             GameState::Setting => {
                 self.setting.draw();  
             }
             GameState::GameOver => {
+                if self.setting.data.hignScore < self.score
+                {
+                    self.setting.data.hignScore = self.score;
+                    self.setting.data.save();
+                }
                 render::draw_grid();
                 render::draw_food(&self.food, self.anim_time);
                 render::draw_snake(&self.snake);
@@ -139,7 +155,16 @@ impl Game {
                     28.0,
                     WHITE,
                 );
-                render::draw_game_over(self.score);
+
+                draw_text(
+                    &format!("Hign Score: {}", self.setting.data.hignScore),
+                    render::OFFSET_X,
+                    render::OFFSET_Y + 5.0,
+                    28.0,
+                    WHITE,
+                );
+
+                render::draw_game_over(self.score, self.setting.data.hignScore);
             }
         }
     }

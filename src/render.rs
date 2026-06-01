@@ -1,4 +1,6 @@
+use crate::data;
 use crate::point::Point;
+use crate::setting::{self, Setting};
 use crate::snake::Snake;
 use crate::food::{GRID_WIDTH, GRID_HEIGHT};
 use macroquad::prelude::*;
@@ -6,6 +8,10 @@ use macroquad::prelude::*;
 pub const CELL_SIZE: f32 = 25.0;
 pub const OFFSET_X: f32 = 150.0;
 pub const OFFSET_Y: f32 = 50.0;
+
+pub  struct Render {
+    setting: Setting
+}
 
 pub fn grid_to_screen(x: i32, y: i32) -> (f32, f32) {
     (
@@ -139,7 +145,7 @@ pub fn draw_food(food: &Point, anim_time: f32) {
     );
 }
 
-pub fn draw_game_over(score: u32) {
+pub fn draw_game_over(score: u32, high_score: u32) {
     draw_rectangle(0.0, 0.0, 800.0, 600.0, Color::new(0.0, 0.0, 0.0, 0.7));
     draw_text("GAME OVER", 200.0, 200.0, 60.0, RED);
     draw_text(
@@ -149,6 +155,14 @@ pub fn draw_game_over(score: u32) {
         35.0,
         WHITE,
     );
-    draw_text("Press Enter to Restart", 240.0, 350.0, 28.0, GRAY);
-    draw_text("Press Escape for Menu", 250.0, 390.0, 28.0, GRAY);
+
+    draw_text(
+        &format!("Your hign Score: {}", high_score),
+        250.0,
+        330.0,
+        35.0,
+        WHITE,
+    );
+    draw_text("Press Enter to Restart", 240.0, 380.0, 28.0, GRAY);
+    draw_text("Press Escape for Menu", 250.0, 430.0, 28.0, GRAY);
 }
